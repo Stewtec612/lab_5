@@ -25,6 +25,8 @@ conn.commit()
 for row in conn.execute("SELECT * FROM records"):
     print(row)
 
+conn.close()
+
 def main():
     menu_text = """
     1. Display all records
@@ -53,9 +55,10 @@ def main():
 
 def display_all_records():
     """
-    Display all records 
+    Display all records data currently inside the database
     """
-    print('todo display all records')
+    #print('todo display all records')
+
 
 
 def add_new_record():
