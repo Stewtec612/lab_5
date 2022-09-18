@@ -25,6 +25,8 @@ conn.commit()
 for row in conn.execute("SELECT * FROM records"):
     print(row)
 
+conn.close()
+
 def main():
     menu_text = """
     1. Display all records
