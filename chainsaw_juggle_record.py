@@ -4,7 +4,7 @@ The user is given the option to choose between:
     -displaying all recorded records in database 
     -add a new record to the database
     -modify and update an existing entry in the database
-    -Delete an entry in the 
+    -Delete an entry in the database
 """
 
 
