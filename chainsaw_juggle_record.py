@@ -13,6 +13,7 @@ conn = sqlite3.connect('chainjugglerec.db')
 #create table for db
 conn.execute('CREATE TABLE IF NOT EXISTS records(name text, country text, number_of_catches integer)')
 
+
 #add data to the table
 conn.execute('INSERT INTO records VALUES("Jane Mustonen", "Finland", 98)')
 conn.execute('INSERT INTO records VALUES("Ian Stewart", "Canada", 94)')
@@ -22,10 +23,7 @@ conn.execute('INSERT INTO records VALUES("Chad Taylor", "USA", 78)')
 #finalize additions
 conn.commit()
 
-for row in conn.execute("SELECT * FROM records"):
-    print(row)
 
-conn.close()
 
 def main():
     menu_text = """
@@ -33,7 +31,8 @@ def main():
     2. Add new record
     3. Edit existing record
     4. Delete record 
-    5. Quit
+    5. Delete table
+    6. Quit
     """
 
     while True:
@@ -48,6 +47,10 @@ def main():
         elif choice == '4':
             delete_record()
         elif choice == '5':
+            conn.execute('DROP TABLE records')
+            conn.commit()
+        elif choice == '6':
+            conn.close()
             break
         else:
             print('Not a valid selection, please try again')
@@ -58,6 +61,8 @@ def display_all_records():
     Display all records data currently inside the database
     """
     #print('todo display all records')
+    for row in conn.execute("SELECT * FROM records"):
+        print(row)
 
 
 
