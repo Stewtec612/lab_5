@@ -10,15 +10,15 @@ The user is given the option to choose between:
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
 
-#create table for db
-conn.execute('CREATE TABLE IF NOT EXISTS records(name text, country text, number_of_catches integer)')
+# create table for db
+# conn.execute('CREATE TABLE IF NOT EXISTS records(name text, country text, number_of_catches integer)')
 
 
-#add data to the table
-conn.execute('INSERT INTO records VALUES("Jane Mustonen", "Finland", 98)')
-conn.execute('INSERT INTO records VALUES("Ian Stewart", "Canada", 94)')
-conn.execute('INSERT INTO records VALUES("Aaron Gregg", "Canada", 88)')
-conn.execute('INSERT INTO records VALUES("Chad Taylor", "USA", 78)')
+# add data to the table
+# conn.execute('INSERT INTO records VALUES("Jane Mustonen", "Finland", 98)')
+# conn.execute('INSERT INTO records VALUES("Ian Stewart", "Canada", 94)')
+# conn.execute('INSERT INTO records VALUES("Aaron Gregg", "Canada", 88)')
+# conn.execute('INSERT INTO records VALUES("Chad Taylor", "USA", 78)')
 
 #finalize additions
 conn.commit()
