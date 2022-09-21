@@ -1,4 +1,5 @@
 import sqlite3
+from urllib import request
 """
 This progam uses a database that collects all chainsaw juggling records in 2018
 The user is given the option to choose between:
@@ -9,15 +10,16 @@ The user is given the option to choose between:
 """
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
+conn.execute('DROP TABLE records')
 
 #create table for db
-conn.execute('CREATE TABLE IF NOT EXISTS records(name text, country text, number_of_catches integer)')
+conn.execute('CREATE TABLE IF NOT EXISTS records(rowid INTEGER PRIMARY KEY, name text, country text, number_of_catches integer)')
 
 #add data to the table
-# conn.execute('INSERT INTO records VALUES("Jane Mustonen", "Finland", 98)')
-# conn.execute('INSERT INTO records VALUES("Ian Stewart", "Canada", 94)')
-# conn.execute('INSERT INTO records VALUES("Aaron Gregg", "Canada", 88)')
-# conn.execute('INSERT INTO records VALUES("Chad Taylor", "USA", 78)')
+conn.execute('INSERT INTO records VALUES(NULL, "Jane Mustonen", "Finland", 98)')
+conn.execute('INSERT INTO records VALUES(NULL, "Ian Stewart", "Canada", 94)')
+conn.execute('INSERT INTO records VALUES(NULL, "Aaron Gregg", "Canada", 88)')
+conn.execute('INSERT INTO records VALUES(NULL, "Chad Taylor", "USA", 78)')
 
 #finalize additions
 conn.commit()
@@ -62,11 +64,13 @@ def add_new_record():
 
 
 def edit_existing_record():
-    print('todo edit existing record. What if user wants to edit record that does not exist?') 
 
-    for row in conn.execute('SELECT * FROM records'):
-        print(row)
-    selected_name = input('whats the name of the recordholder you would like to edit? ')
+
+    
+
+
+
+    conn.close()
     
     
     
