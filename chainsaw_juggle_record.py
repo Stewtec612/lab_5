@@ -1,3 +1,5 @@
+
+from msilib.schema import Error
 import sqlite3
 """
 This progam uses a database that collects all chainsaw juggling records in 2018
@@ -9,22 +11,21 @@ The user is given the option to choose between:
 """
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
-#conn.execute('DROP TABLE records')
+
 
 #create table for db
 conn.execute('CREATE TABLE IF NOT EXISTS records(name text, country text, number_of_catches integer)')
 
 #add data to the table
-# conn.execute('INSERT INTO records VALUES("Jane Mustonen", "Finland", 98)')
-# conn.execute('INSERT INTO records VALUES("Ian Stewart", "Canada", 94)')
-# conn.execute('INSERT INTO records VALUES("Aaron Gregg", "Canada", 88)')
-# conn.execute('INSERT INTO records VALUES("Chad Taylor", "USA", 78)')
+conn.execute('INSERT INTO records VALUES("Jane Mustonen", "Finland", 98)')
+conn.execute('INSERT INTO records VALUES("Ian Stewart", "Canada", 94)')
+conn.execute('INSERT INTO records VALUES("Aaron Gregg", "Canada", 88)')
+conn.execute('INSERT INTO records VALUES("Chad Taylor", "USA", 78)')
+
+
 
 #finalize additions
 conn.commit()
-
-for row in conn.execute("SELECT * FROM records"):
-    print(row)
 
 conn.close()
 
@@ -57,18 +58,23 @@ def main():
 def display_all_records():
     print('todo display all records')
 
-
 def add_new_record():
-    print('todo add new record. What if user wants to add a record that already exists?')
-    new_name = input('Enter name of record holder: ')
-    new_country = input(f'Enter {new_name}\'s home country: ')
-    num_of_catches = input(f'Enter the number of catches {new_name} performed: ')
+    try:
+        with sqlite3.connect('chainjugglerec.db') as conn:
+            new_name = input('Enter name of record holder: ')
+            new_country = input(f'Enter {new_name}\'s home country: ')
+            num_of_catches = input(f'Enter the number of catches {new_name} performed: ')
+            if new_name is not None:
+                raise sqlite3.Error
+    
+            insert_rec_sql = 'INSERT INTO records(name, country, number_of_catches) VALUES(?, ?, ?)'
+            conn.execute(insert_rec_sql, (new_name, new_country, num_of_catches))
 
-    conn = sqlite3.connect('chainjugglerec.db')
-    insert_rec_sql = 'INSERT INTO records(name, country, number_of_catches) VALUES(?, ?, ?)'
-    conn.execute(insert_rec_sql, (new_name, new_country, num_of_catches))
-    conn.commit()
-    conn.close()
+    except sqlite3.Error as e:
+        print(f'Error inserting new data, {new_name} already exists')
+    else:
+        conn.commit()
+        conn.close()
 
 
 
