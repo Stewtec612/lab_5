@@ -31,7 +31,6 @@ def main():
     2. Add new record
     3. Edit existing record
     4. Delete record 
-    5. Delete table
     6. Quit
     """
 
@@ -47,9 +46,6 @@ def main():
         elif choice == '4':
             delete_record()
         elif choice == '5':
-            conn.execute('DROP TABLE records')
-            conn.commit()
-        elif choice == '6':
             conn.close()
             break
         else:
@@ -60,7 +56,6 @@ def display_all_records():
     """
     Display all records data currently inside the database
     """
-    #print('todo display all records')
     for row in conn.execute("SELECT * FROM records"):
         print(row)
 
