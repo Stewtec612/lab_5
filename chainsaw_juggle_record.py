@@ -27,7 +27,6 @@ conn.commit()
 for row in conn.execute("SELECT * FROM records"):
     print(row)
 
-conn.close()
 
 def main():
     menu_text = """
@@ -57,6 +56,8 @@ def main():
 
 def display_all_records():
     print('todo display all records')
+    for row in conn.execute("SELECT * FROM records"):
+        print(row)
 
 
 def add_new_record():
@@ -73,7 +74,7 @@ def edit_existing_record():
             name_to_change = input('whats the name of the record holder that youd like to change? ')
             conn.execute('UPDATE records SET name = ?, country = ?, number_of_catches = ? WHERE name = ?',(new_name, new_country, new_juggle_rec, name_to_change))
     except sqlite3.Error as e:
-        print(f'Cannot edit data, entry with {new_name}, {new_country}, {new_juggle_rec} already exists')
+        print(f'Cannot edit data, entry with {new_name} does not exists')
     else:
         conn.commit()
         conn.close()
