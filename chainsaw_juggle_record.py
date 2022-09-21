@@ -9,7 +9,6 @@ The user is given the option to choose between:
 """
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
-conn.execute('DROP TABLE records')
 
 #create table for db
 conn.execute('CREATE TABLE IF NOT EXISTS records(name text, country text, number_of_catches integer)')
@@ -74,10 +73,10 @@ def delete_record():
                 print(row)
 
             entry_to_delete = input('What is the name of the record holder would you like to delete? ')
-        conn.execute('DELETE FROM records WHERE name = ?',(entry_to_delete, ))
+            conn.execute('DELETE FROM records WHERE name = ?',(entry_to_delete, ))
     except sqlite3.Error as e:
-        print('Error accessing data {e}')
-    finally:
+        print(f'Error accessing data, {entry_to_delete} does not exist')
+    else:
         conn.commit()
         conn.close
 
