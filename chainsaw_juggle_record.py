@@ -77,7 +77,20 @@ def edit_existing_record():
     
 
 def delete_record():
-    print('todo delete existing record. What if user wants to delete record that does not exist?') 
+    try:
+        with sqlite3.connect('chainjugglerec.db') as conn:
+
+            for row in conn.execute("SELECT * FROM records"):
+                print(row)
+
+            entry_to_delete = input('What is the name of the record holder would you like to delete? ')
+            conn.execute('DELETE FROM records WHERE name = ?',(entry_to_delete, ))
+    except sqlite3.Error as e:
+        print(f'Error accessing data, {entry_to_delete} does not exist')
+    else:
+        conn.commit()
+        conn.close
+
 
 
 if __name__ == '__main__':
