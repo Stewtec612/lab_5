@@ -10,6 +10,8 @@ The user is given the option to choose between:
 """
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
+conn.execute('DROP TABLE records')
+
 
 #create table for db
 conn.execute('CREATE TABLE IF NOT EXISTS records(rowid INTEGER PRIMARY KEY, name text, country text, number_of_catches integer)')
@@ -22,10 +24,6 @@ conn.execute('INSERT INTO records VALUES(NULL, "Chad Taylor", "USA", 78)')
 
 #finalize additions
 conn.commit()
-
-for row in conn.execute("SELECT * FROM records"):
-    print(row)
-
 
 def main():
     menu_text = """
@@ -64,11 +62,10 @@ def add_new_record():
 
 def edit_existing_record():
     try:
+        new_name = input('Enter new name: ')
+        new_country = input('enter new country: ')
+        new_juggle_rec = input('Enter new juggle record: ')
         with sqlite3.connect('chainjugglerec.db') as conn:
-            
-            new_name = input('Enter new name: ')
-            new_country = input('enter new country: ')
-            new_juggle_rec = input('Enter new juggle record: ')
             name_to_change = input('whats the name of the record holder that youd like to change? ')
             conn.execute('UPDATE records SET name = ?, country = ?, number_of_catches = ? WHERE name = ?',(new_name, new_country, new_juggle_rec, name_to_change))
     except sqlite3.Error as e:
