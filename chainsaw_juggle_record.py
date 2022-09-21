@@ -65,9 +65,19 @@ def add_new_record():
 
 def edit_existing_record():
     print('todo edit existing record. What if user wants to edit record that does not exist?') 
+    conn = sqlite3.connect('chainjugglerec.db')
+    for row in conn.execute("SELECT * FROM records"):
+        print(row)
+
+    new_name = input('Enter new name: ')
+    new_country = input('enter new country: ')
+    new_juggle_rec = input('Enter new juggle record: ')
+    name_to_change = input('whats the name of the record holder that youd like to change? ')
 
     
 
+    conn.execute('UPDATE records SET name = ?, country = ?, number_of_catches = ? WHERE name = ?',(new_name, new_country, new_juggle_rec, name_to_change))
+    conn.commit()
 
 
     conn.close()
