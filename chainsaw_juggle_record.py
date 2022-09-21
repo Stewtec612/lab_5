@@ -52,7 +52,12 @@ def main():
 
 
 def display_all_records():
-    print('todo display all records')
+    """
+    Display all records data currently inside the database
+    """
+    for row in conn.execute("SELECT * FROM records"):
+        print(row)
+
 
 
 
