@@ -10,7 +10,6 @@ The user is given the option to choose between:
 """
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
-conn.execute('DROP TABLE records')
 
 #create table for db
 conn.execute('CREATE TABLE IF NOT EXISTS records(rowid INTEGER PRIMARY KEY, name text, country text, number_of_catches integer)')
@@ -56,8 +55,7 @@ def main():
 
 def display_all_records():
     print('todo display all records')
-    for row in conn.execute("SELECT * FROM records"):
-        print(row)
+
 
 
 def add_new_record():
