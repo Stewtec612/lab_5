@@ -1,3 +1,4 @@
+
 import sqlite3
 """
 This progam uses a database that collects all chainsaw juggling records in 2018
@@ -56,7 +57,24 @@ def display_all_records():
 
 
 def add_new_record():
-    print('todo add new record. What if user wants to add a record that already exists?')
+    try:
+        with sqlite3.connect('chainjugglerec.db') as conn:
+            new_name = input('Enter name of record holder: ')
+            new_country = input(f'Enter {new_name}\'s home country: ')
+            num_of_catches = input(f'Enter the number of catches {new_name} performed: ')
+            if new_name is not None:
+                raise sqlite3.Error
+    
+            insert_rec_sql = 'INSERT INTO records(name, country, number_of_catches) VALUES(?, ?, ?)'
+            conn.execute(insert_rec_sql, (new_name, new_country, num_of_catches))
+
+    except sqlite3.Error as e:
+        print(f'Error inserting new data, {new_name} already exists')
+    else:
+        conn.commit()
+        conn.close()
+
+
 
 
 def edit_existing_record():
