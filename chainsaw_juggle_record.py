@@ -1,5 +1,3 @@
-
-from msilib.schema import Error
 import sqlite3
 """
 This progam uses a database that collects all chainsaw juggling records in 2018
