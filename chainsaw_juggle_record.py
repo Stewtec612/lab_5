@@ -1,5 +1,4 @@
 import sqlite3
-from urllib import request
 """
 This progam uses a database that collects all chainsaw juggling records in 2018
 The user is given the option to choose between:
@@ -10,7 +9,7 @@ The user is given the option to choose between:
 """
 #establish a connection to chainjugglerec.db
 conn = sqlite3.connect('chainjugglerec.db')
-conn.execute('DROP TABLE records')
+
 
 
 #create table for db
