@@ -1,3 +1,4 @@
+
 import sqlite3
 """
 This progam uses a database that collects all chainsaw juggling records in 2018
@@ -49,8 +50,11 @@ def main():
         else:
             print('Not a valid selection, please try again')
 
+
 def display_all_records():
     print('todo display all records')
+
+
 
 def add_new_record():
     try:
